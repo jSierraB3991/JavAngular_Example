@@ -8,7 +8,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 
 @RestController
-@RequestMapping("/season")
+@RequestMapping("/api/season")
 public class SeasonController {
 
     private final SeasonApplication seasonApplication;

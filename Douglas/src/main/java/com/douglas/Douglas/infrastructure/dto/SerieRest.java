@@ -26,6 +26,10 @@ public class SerieRest extends  BaseRest {
 
     private List<String> images;
 
+    public String getFirstImage(){
+        return images==null ? "" : images.get(0);
+    }
+
     public SerieRest(int id, String name, String remarks,
                      CategoryRest category, List<SeasonRest> seasons,
                      List<String> images){

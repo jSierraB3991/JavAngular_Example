@@ -10,7 +10,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 
 @RestController
-@RequestMapping("/serie")
+@RequestMapping("/api/serie")
 public class SerieController extends  BaseController<SerieRest, Serie> {
 
     private final SerieApplication serieApplication;
