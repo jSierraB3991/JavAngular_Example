@@ -3,10 +3,12 @@ package com.douglas.Douglas.infrastructure.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.lang.NonNullApi;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 @Setter
@@ -26,9 +28,7 @@ public class SerieRest extends  BaseRest {
 
     private List<String> images;
 
-    public String getFirstImage(){
-        return images==null ? "" : images.get(0);
-    }
+    private String firstImage;
 
     public SerieRest(int id, String name, String remarks,
                      CategoryRest category, List<SeasonRest> seasons,

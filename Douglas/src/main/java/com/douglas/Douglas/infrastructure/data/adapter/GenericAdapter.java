@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 public class GenericAdapter<Dto extends BaseEntity> implements GenericService<Dto>
 {
-    private final JpaRepository<Dto, Integer> repository;
+    protected final JpaRepository<Dto, Integer> repository;
     protected ModelMapper mapper;
 
 

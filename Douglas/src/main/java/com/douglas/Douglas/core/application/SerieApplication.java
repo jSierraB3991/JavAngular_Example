@@ -10,6 +10,7 @@ import com.douglas.Douglas.infrastructure.dto.CategoryRest;
 import com.douglas.Douglas.infrastructure.dto.SeasonRest;
 import com.douglas.Douglas.infrastructure.dto.SerieRest;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -43,6 +44,11 @@ public class SerieApplication extends GenericApplication<SerieRest, Serie> {
         return convertToRest(serie);
     }
 
+    public List<SerieRest> findAll(Pageable pageable) {
+        List<Serie> series = serieService.findAll(pageable);
+        return convertToRest(series);
+    }
+
     private SerieRest set(SerieRest rest)
     {
         rest.setCategory(mapper.map(categoryService.findById(rest.getCategory().getId()),
@@ -64,10 +70,12 @@ public class SerieApplication extends GenericApplication<SerieRest, Serie> {
     protected SerieRest convertToRest(Serie dto) {
         SerieRest serie = mapper.map(dto, SerieRest.class);
 
-        if(Optional.ofNullable(dto.getImageSeries()).isPresent())
+        if(Optional.ofNullable(dto.getImageSeries()).isPresent()){
             serie.setImages(dto.getImageSeries().stream()
                     .map(ImageSerie::getUrlImage)
                     .collect(Collectors.toList()));
+            serie.setFirstImage(dto.getImageSeries().get(0).getUrlImage());
+        }
 
         if(Optional.ofNullable(dto.getSeasons()).isPresent()) {
             List<VideoSeason> videoSeasonList = new ArrayList<>();

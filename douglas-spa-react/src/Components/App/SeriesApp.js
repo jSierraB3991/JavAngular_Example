@@ -6,36 +6,47 @@ import { MovieService } from "../../Service/MovieService";
 
 export default function SeriesApp()
 {
-    const [searchTerm, setSearchTerm] = useState('');
     const [ moviesApi, setMoviesApi ] = useState([]);
+    const [ categories, setCategories ] = useState([]);
+    const [ categorySel, setCategorySel ] = useState(0);
 
     useEffect(() =>{
         async function fetchSeries(){
             var service = new MovieService();
-            service.GetMovies().then(res =>{
+            service.GetCategories().then(res =>{
+                setCategories(res.data);
+            });
+        }
+        fetchSeries();
+    },[]);
+
+    const handleOnChange = (e) =>{
+        setCategorySel(e.target.value);
+    };
+
+    const handleOnSubmit = (e) => {
+        e.preventDefault();
+    };
+
+    useEffect(() =>{
+        async function fetchSeries(){
+            var service = new MovieService();
+            service.GetMovies(0).then(res =>{
                 setMoviesApi(res.data);
             });
         }
         fetchSeries();
     },[])
 
-
-
-    const handleOnSubmit = (e) => {
-        e.preventDefault();
-    };
-
-    const handleOnChange = (e) =>{
-        setSearchTerm(e.target.value);
-        //TODO SEARCH SERIE
-    };
-
-    return <div>
+return <div>
         <header>
-            <form onSubmit={handleOnSubmit}>
-                <input type="text" className="search" 
-                placeholder="Search..." value={searchTerm}
-                onChange={handleOnChange} />
+            <form onSubmit={handleOnSubmit} className="form">
+                <select className="search" value={categorySel} onChange={handleOnChange}>
+                    <option value="0">Seleccione</option>
+                        {categories.map(category => (
+                            <option key={category.id} value={category.id}>{category.name}</option>
+                    ))}
+                </select>
             </form>
         </header>
         <div className="movie-container">
