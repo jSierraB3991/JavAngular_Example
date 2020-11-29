@@ -2,6 +2,7 @@ package com.douglas.Douglas.infrastructure.controller;
 
 import com.douglas.Douglas.core.application.SerieApplication;
 import com.douglas.Douglas.core.model.Serie;
+import com.douglas.Douglas.infrastructure.dto.PageRest;
 import com.douglas.Douglas.infrastructure.dto.SeasonRest;
 import com.douglas.Douglas.infrastructure.dto.SerieRest;
 import org.springframework.data.domain.Pageable;
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/serie")
@@ -35,7 +35,7 @@ public class SerieController extends  BaseController<SerieRest, Serie> {
     }
 
     @GetMapping("/pagination")
-    public List<SerieRest> findAll(Pageable pageable) {
+    public PageRest<SerieRest> findAll(Pageable pageable) {
         return serieApplication.findAll(pageable);
     }
 }

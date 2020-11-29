@@ -7,9 +7,11 @@ import com.douglas.Douglas.core.model.VideoSeason;
 import com.douglas.Douglas.core.service.CategoryService;
 import com.douglas.Douglas.core.service.SerieService;
 import com.douglas.Douglas.infrastructure.dto.CategoryRest;
+import com.douglas.Douglas.infrastructure.dto.PageRest;
 import com.douglas.Douglas.infrastructure.dto.SeasonRest;
 import com.douglas.Douglas.infrastructure.dto.SerieRest;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
@@ -44,9 +46,14 @@ public class SerieApplication extends GenericApplication<SerieRest, Serie> {
         return convertToRest(serie);
     }
 
-    public List<SerieRest> findAll(Pageable pageable) {
-        List<Serie> series = serieService.findAll(pageable);
-        return convertToRest(series);
+    public PageRest<SerieRest> findAll(Pageable pageable) {
+        Page<Serie> series = serieService.findAll(pageable);
+        PageRest<SerieRest> pageRest = new PageRest<>();
+        pageRest.setData(convertToRest(series.toList()));
+        pageRest.setMaxPage(series.getTotalPages());
+        pageRest.setPreviousPage(previousPage(series.getTotalPages(), pageable.getPageNumber()));
+        pageRest.setNextPage(nextPage(series.getTotalPages(), pageable.getPageNumber()));
+        return pageRest;
     }
 
     private SerieRest set(SerieRest rest)

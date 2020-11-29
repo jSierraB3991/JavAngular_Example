@@ -8,10 +8,10 @@ import com.douglas.Douglas.infrastructure.data.repository.SerieRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,9 +22,8 @@ public class SerieAdapter extends GenericAdapter<Serie> implements SerieService 
     }
 
     @Override
-    public List<Serie> findAll(Pageable pageable) {
-        Page<Serie> series= repository.findAll(pageable);
-        return series.toList();
+    public Page<Serie> findAll(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
     @Override

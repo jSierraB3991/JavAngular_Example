@@ -53,6 +53,17 @@ public abstract class GenericApplication<Rest extends BaseRest, Dto extends Base
         return  rests.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
+    protected Integer nextPage(int maxPage, int page) {
+        if((maxPage-1)==page) return null;
+        return page+1;
+    }
+
+    protected Integer previousPage(int maxPage, int page) {
+        if(page==0) return null;
+        if(maxPage==1) return null;
+        return page-1;
+    }
+
     protected abstract Rest convertToRest(Dto dto);
 
     protected abstract Dto convertToDto(Rest rest);
