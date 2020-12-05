@@ -5,10 +5,8 @@ import com.douglas.Douglas.core.model.Season;
 import com.douglas.Douglas.core.model.Serie;
 import com.douglas.Douglas.core.service.SerieService;
 import com.douglas.Douglas.infrastructure.data.repository.SerieRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,8 +15,8 @@ import java.util.Optional;
 @Service
 public class SerieAdapter extends GenericAdapter<Serie> implements SerieService {
 
-    public SerieAdapter(SerieRepository serieRepository, ModelMapper mapper){
-        super(serieRepository, mapper);
+    public SerieAdapter(SerieRepository serieRepository){
+        super(serieRepository);
     }
 
     @Override
