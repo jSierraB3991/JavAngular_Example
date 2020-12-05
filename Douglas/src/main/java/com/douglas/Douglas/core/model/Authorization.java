@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "authorization")
@@ -34,6 +33,6 @@ public class Authorization extends BaseEntity {
     @Column(name = "cell_phone", length = 15)
     private String cellPhone;
 
-    @OneToMany(targetEntity = AuthorizationRole.class)
-    private List<AuthorizationRole> authorizationRole;
+    @ManyToOne(targetEntity = Role.class)
+    private Role role;
 }
