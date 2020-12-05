@@ -8,6 +8,7 @@ import com.douglas.Douglas.infrastructure.dto.SerieRest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 
@@ -23,7 +24,8 @@ public class SerieController extends  BaseController<SerieRest, Serie> {
     }
 
     @PostMapping("/add-season/{id-serie}")
-    public SerieRest addSeason(@PathVariable("id-serie") int idSerie, @RequestBody SeasonRest season) {
+    public SerieRest addSeason(@PathVariable("id-serie") int idSerie,
+                               @RequestBody @Valid SeasonRest season) {
         return serieApplication.addSeason(idSerie, season);
     }
 

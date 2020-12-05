@@ -5,6 +5,7 @@ import com.douglas.Douglas.core.model.Role;
 import com.douglas.Douglas.core.service.AuthorizationService;
 import com.douglas.Douglas.infrastructure.data.repository.AuthorizationRepository;
 import com.douglas.Douglas.infrastructure.data.repository.RoleRepository;
+import com.douglas.Douglas.infrastructure.exception.BusinessException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -38,7 +39,7 @@ public class AuthorizationAdapter extends GenericAdapter<Authorization> implemen
     @Override
     public Authorization findByEmail(String email) {
         return authorizationRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Email Error"));
+                .orElseThrow(() -> BusinessException.runException("Email Error"));
     }
 
     @Override

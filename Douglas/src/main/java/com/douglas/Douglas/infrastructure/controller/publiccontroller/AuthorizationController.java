@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/public/authorization")
 @RequiredArgsConstructor
@@ -16,7 +18,7 @@ public class AuthorizationController {
     private final AuthorizationApplication authorizationApplication;
 
     @PostMapping("/save-user")
-    public void saveUser(@RequestBody AuthorizationRest authorization){
+    public void saveUser(@RequestBody @Valid AuthorizationRest authorization){
         authorizationApplication.save(authorization);
     }
 

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "authorization")
@@ -16,15 +17,19 @@ import javax.persistence.*;
 public class Authorization extends BaseEntity {
 
     @Column(name = "email", unique = true, nullable = false, length = 500)
+    @NotBlank
     private String email;
 
     @Column(name = "password", nullable = false, length = 300)
+    @NotBlank
     private String password;
 
     @Column(name = "first_name", nullable = false, length = 50)
+    @NotBlank
     private String firstName;
 
     @Column(name = "last_name", nullable = false, length = 100)
+    @NotBlank
     private String lastName;
 
     @Column(name = "address", length = 200)
