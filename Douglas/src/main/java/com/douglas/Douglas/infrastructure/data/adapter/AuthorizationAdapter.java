@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,11 +33,9 @@ public class AuthorizationAdapter extends GenericAdapter<Authorization> implemen
     @Override
     public Authorization save(Authorization entity) {
         Authorization auth = super.save(entity);
-        List<Role> roles = roleRepository.findByRoleNames(getListAdminAuthority().stream()
-                .map(ga -> ga.getAuthority())
-                .collect(Collectors.toList()));
-        entity.setAuthorizationRole(roles.stream().map(role->
-                new AuthorizationRole(0, auth, role)).collect(Collectors.toList()));
+        Role role = roleRepository.findByRoleName("USER")
+                .orElseThrow(() -> new RuntimeException("ROLE 'USER' NOT FOUND"));
+        entity.setAuthorizationRole(Arrays.asList(new AuthorizationRole(0, auth, role)));
         repository.save(auth);
         return auth;
     }
@@ -51,23 +48,16 @@ public class AuthorizationAdapter extends GenericAdapter<Authorization> implemen
 
     @Override
     public UserDetails loadUserByUsername(String username)
-            throws UsernameNotFoundException
-    {
+            throws UsernameNotFoundException {
         Authorization userO = findByEmail(username);
         return new User(userO.getEmail(), userO.getPassword(),
-                true, true, true, true, getListAdminAuthority());
+                true, true, true,
+                true, getListAuthority(userO.getAuthorizationRole()));
     }
 
-    public List<GrantedAuthority> getListAuthority()
-    {
-        return Arrays.asList(new SimpleGrantedAuthority(roleRepository.findByRoleName("USER")
-                .orElseThrow(() ->new RuntimeException("Role Not Found")).getRoleName()));
-    }
-
-    public List<GrantedAuthority> getListAdminAuthority()
-    {
-        return roleRepository.findByRoleNames(Arrays.asList(new String[]{"USER", "ADMINS"})).stream()
-                .map(role -> new SimpleGrantedAuthority(role.getRoleName()))
+    public List<GrantedAuthority> getListAuthority(List<AuthorizationRole> authorizationRole) {
+        return authorizationRole.stream()
+                .map(authRole -> new SimpleGrantedAuthority(authRole.getRole().getRoleName()))
                 .collect(Collectors.toList());
     }
 }
