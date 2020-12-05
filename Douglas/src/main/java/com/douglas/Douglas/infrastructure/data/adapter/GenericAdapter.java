@@ -3,7 +3,6 @@ package com.douglas.Douglas.infrastructure.data.adapter;
 import com.douglas.Douglas.core.model.BaseEntity;
 import com.douglas.Douglas.core.service.GenericService;
 import lombok.AllArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -12,8 +11,6 @@ import java.util.List;
 public class GenericAdapter<Dto extends BaseEntity> implements GenericService<Dto>
 {
     protected final JpaRepository<Dto, Integer> repository;
-    protected ModelMapper mapper;
-
 
     @Override
     public List<Dto> findAll() {
