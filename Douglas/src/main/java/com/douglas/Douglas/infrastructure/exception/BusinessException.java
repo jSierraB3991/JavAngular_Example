@@ -17,10 +17,10 @@ public class BusinessException extends RuntimeException {
     }
 
     public static BusinessException runException(String message){
-        return new BusinessException(message);
+        throw new BusinessException(message);
     }
 
     public static BusinessException runException(String message, String info){
-        return new BusinessException(message, info);
+        throw new BusinessException(message, info);
     }
 }

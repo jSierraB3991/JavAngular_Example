@@ -32,7 +32,8 @@ export default function SeriesApp()
         async function fetchSeries(){
             var service = new MovieService();
             service.GetMovies(0).then(res =>{
-                setMoviesApi(res.data);
+                console.log(res.data);
+                setMoviesApi(res.data.data);
             });
         }
         fetchSeries();

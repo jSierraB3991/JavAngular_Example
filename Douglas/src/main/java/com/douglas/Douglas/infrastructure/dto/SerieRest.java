@@ -3,23 +3,23 @@ package com.douglas.Douglas.infrastructure.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.lang.NonNullApi;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
-import java.util.Optional;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class SerieRest extends  BaseRest {
 
+    @NotNull(message = "The name in serie is mandatory")
     @NotBlank(message = "The name in serie is mandatory")
-    @Max(value = 30, message = "The maximum character for name of serie is 30 characters")
+    @Size(max = 100, message = "The maximum character for name of serie is 100 characters")
     private String name;
 
-    @Max(value = 1000, message = "The maximum character for remarks is 1000 characters")
+    @Size(max = 2000, message = "The maximum character for remarks is 2000 characters")
     private String remarks;
 
     private CategoryRest category;

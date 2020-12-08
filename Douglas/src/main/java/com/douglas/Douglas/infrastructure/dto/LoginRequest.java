@@ -18,6 +18,6 @@ public class LoginRequest {
     private String email;
 
     @NotNull(message = "La contraseña es obligatoria")
-    @Max(value = 15, message = "La longitud maxima de la contraseña es de 15 caracteres")
+    @Size(max = 15, min = 8, message = "La longitud de la contraseña debe ser entre 8 y 15 caracteres")
     private String password;
 }

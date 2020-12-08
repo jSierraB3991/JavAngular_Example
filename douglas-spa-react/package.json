@@ -15,7 +15,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "aws s3 sync build/ s3://spring-boot-angular-douglas --acl public-read"
   },
   "eslintConfig": {
     "extends": [

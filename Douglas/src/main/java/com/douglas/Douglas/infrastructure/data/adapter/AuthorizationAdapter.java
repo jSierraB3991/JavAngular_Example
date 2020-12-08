@@ -30,8 +30,8 @@ public class AuthorizationAdapter extends GenericAdapter<Authorization> implemen
 
     @Override
     public Authorization save(Authorization entity) {
-        Role role = roleRepository.findByRoleName("USER")
-                .orElseThrow(() -> new RuntimeException("ROLE 'USER' NOT FOUND"));
+        Role role = roleRepository.findByRoleName("USERDos")
+                .orElseThrow(() -> BusinessException.runException("exception.role.not.found", "USERDos"));
         entity.setRole(role);
         return super.save(entity);
     }
@@ -39,7 +39,7 @@ public class AuthorizationAdapter extends GenericAdapter<Authorization> implemen
     @Override
     public Authorization findByEmail(String email) {
         return authorizationRepository.findByEmail(email)
-                .orElseThrow(() -> BusinessException.runException("Email Error"));
+                .orElseThrow(() -> BusinessException.runException("login.user.mail.error"));
     }
 
     @Override
