@@ -1,0 +1,25 @@
+<header>
+    <div  class="form">
+        <a routerLink="/login" class="alogin search"> Login </a>
+        <select class="search">
+            <option value="0">Seleccione</option>
+            <option id="{{category.id}}" *ngFor="let category of categories">{{category.name}}</option>
+        </select>
+    </div>
+</header>
+<div class="movie-container">
+    <div class="movie" *ngFor="let serie of series">
+        <a routerLink="/details?serie={{serie.id}}">
+            <img src="{{ serie.firstImage }}"
+            alt="{{ serie.name }}" />
+            <div class="movie-info">
+                <h3>{{ serie.name }}</h3>
+                <span>{{ serie.category.name }}</span>
+            </div>
+            <div class="movie-over">
+                <h3>Sipnosis</h3>
+                <p class="remarks-movie">{{ serie.remarks }}.</p>
+            </div>
+        </a>
+    </div>
+</div>
