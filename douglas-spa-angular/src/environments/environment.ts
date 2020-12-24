@@ -4,7 +4,10 @@
 
 export const environment = {
   production: false,
-  urlApi : "http://localhost:20001/api"
+  urlApi : "http://localhost:20001/api",
+  url : "http://localhost:20001",
+  tokenKey: "AuthToken",
+  userNameKey: "AuthUserName"
 };
 
 /*

@@ -1,21 +1,25 @@
 package com.douglas.Douglas.infrastructure.data.adapter;
 
+import com.douglas.Douglas.configuration.jwt.JwtProvider;
 import com.douglas.Douglas.core.model.Authorization;
 import com.douglas.Douglas.core.model.Role;
 import com.douglas.Douglas.core.service.AuthorizationService;
 import com.douglas.Douglas.infrastructure.data.repository.AuthorizationRepository;
 import com.douglas.Douglas.infrastructure.data.repository.RoleRepository;
 import com.douglas.Douglas.infrastructure.exception.BusinessException;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
+import javax.transaction.Transactional;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class AuthorizationAdapter extends GenericAdapter<Authorization> implements AuthorizationService {
 
     private final AuthorizationRepository authorizationRepository;
@@ -28,11 +32,20 @@ public class AuthorizationAdapter extends GenericAdapter<Authorization> implemen
         this.roleRepository = roleRepository;
     }
 
+    private Set<Role> setRole(Set<Role> roles){
+        return roles.stream().map(rol -> {
+            Optional<Role> role = roleRepository.findByRoleName(rol.getRoleName());
+            if(!role.isPresent()) rol = roleRepository.save(rol);
+            else rol = role.get();
+            return rol;
+        }).collect(Collectors.toSet());
+    }
+
     @Override
     public Authorization save(Authorization entity) {
-        Role role = roleRepository.findByRoleName("USERDos")
-                .orElseThrow(() -> BusinessException.runException("exception.role.not.found", "USERDos"));
-        entity.setRole(role);
+        entity.setRole(setRole(entity.getRole()));
+        if(authorizationRepository.findByEmail(entity.getEmail()).isPresent())
+            BusinessException.runException("save.user.duplicate.email");
         return super.save(entity);
     }
 
@@ -48,10 +61,6 @@ public class AuthorizationAdapter extends GenericAdapter<Authorization> implemen
         Authorization userO = findByEmail(username);
         return new User(userO.getEmail(), userO.getPassword(),
                 true, true, true,
-                true, Arrays.asList(getAuthority(userO.getRole())));
-    }
-
-    public GrantedAuthority getAuthority(Role authorizationRole) {
-        return new SimpleGrantedAuthority(authorizationRole.getRoleName());
+                true, userO.getAuthority());
     }
 }

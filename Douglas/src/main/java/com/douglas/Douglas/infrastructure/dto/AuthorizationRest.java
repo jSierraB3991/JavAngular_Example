@@ -4,8 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.validation.constraints.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -39,4 +45,6 @@ public class AuthorizationRest extends BaseRest {
 
     @Size(max = 11, message = "exception.save.user.cellphone.max.length")
     private String cellPhone;
+
+    private Set<RoleRest> roles = new HashSet<>();
 }

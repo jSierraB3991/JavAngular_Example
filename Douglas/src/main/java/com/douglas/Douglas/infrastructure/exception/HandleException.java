@@ -2,6 +2,7 @@ package com.douglas.Douglas.infrastructure.exception;
 
 import com.douglas.Douglas.infrastructure.dto.Response;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import java.util.*;
 
 @ControllerAdvice
 @RequiredArgsConstructor
+@Slf4j
 public class HandleException {
 
     private final MessageSource messageSource;
@@ -47,6 +49,7 @@ public class HandleException {
         String message = messageSource.getMessage(exception,
                 null, LocaleContextHolder.getLocale());
         if(Optional.ofNullable(info).isPresent()) message = String.format(message, info);
+        log.error(message);
         return new ResponseEntity<>(Response.builder().isSuccess(false).message(message).build()
                 , httpStatus);
     }
