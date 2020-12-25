@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { ResultPage } from '../models/ResultPage';
 import { Category } from '../models/Category';
 import { LoginRequest } from '../models/LoginRequest';
+import { Jwt } from '../models/jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +27,8 @@ export class SerieServiceService {
   }
 
 
-  public login(login: LoginRequest){
-    console.log("pidiendo consulta a: " + environment.url+"/login");
-    return this.http.post(environment.url + "/login", login);
+  public login(login: LoginRequest): Observable<Jwt>{
+    console.log("pidiendo consulta a: " + environment.urlApi+"/public/authorization/login");
+    return this.http.post<Jwt>(environment.urlApi + "/public/authorization/login", login);
   }
 }

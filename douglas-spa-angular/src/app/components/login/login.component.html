@@ -1,15 +1,15 @@
-<form class="modal-content animate" method="post">
-    <div class="imgcontainer">
-      <img alt="Avatar" src="../../../assets/img/img_avatar2.png" class="avatar">
-    </div>
+<div class="text-center" *ngIf="hasError">
+  {{ errorMessage }}
+</div>
 
-    <div class="container">
-      <label for="uname"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="uname" required>
+<div class="modal-content animate">
+  <div class="container">
+    <label for="uname"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" [(ngModel)]="email" />
 
-      <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required>
-        
-      <button type="submit">Login</button>
-    </div>
-  </form>
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" [(ngModel)]="password" />
+      
+    <button type="submit" [disabled]="submitted" (click)="onLogin()">Login</button>
+  </div>
+</div>

@@ -9,6 +9,8 @@ import { SerieServiceService } from './Service/serie-service.service';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { SerieComponent } from './components/serie/serie.component';
+import { RegisterComponentComponent } from './components/register-component/register-component.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
@@ -28,6 +30,10 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent
   },
+  {
+    path: 'register',
+    component: RegisterComponentComponent
+  },
 ];
 
 @NgModule({
@@ -35,12 +41,15 @@ const routes: Routes = [
     AppComponent,
     SeriesComponent,
     LoginComponent,
-    SerieComponent
+    SerieComponent,
+    RegisterComponentComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
     RouterModule.forRoot(routes,{
       useHash: true
     })
