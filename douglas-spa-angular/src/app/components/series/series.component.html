@@ -1,6 +1,7 @@
 <header>
     <div  class="form">
-        <a routerLink="/login" class="alogin search"> Login </a>
+        <a routerLink="/login" class="alogin search" *ngIf="isNotLogin"> Login </a>
+        <button class="alogin search" *ngIf="!isNotLogin" (click)="closeSession()"> Cerrar Session </button>
         <select class="search">
             <option value="0">Seleccione</option>
             <option id="{{category.id}}" *ngFor="let category of categories">{{category.name}}</option>

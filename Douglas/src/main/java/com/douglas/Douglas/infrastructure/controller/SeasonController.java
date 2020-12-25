@@ -17,7 +17,7 @@ public class SeasonController {
         this.seasonApplication = seasonApplication;
     }
 
-    @PostMapping("/{id-season}")
+    @PostMapping("/add-url-video/{id-season}")
     public SeasonRest addUrlVideo(@PathVariable("id-season") int idSeason,
                                   @NotBlank(message = "Url of video is mandatory")
                                   @Size(max = 255, message = "The maximun character of url video is 255")

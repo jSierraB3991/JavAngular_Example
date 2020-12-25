@@ -46,8 +46,8 @@ public class SerieApplication extends GenericApplication<SerieRest, Serie> {
         return convertToRest(serie);
     }
 
-    public PageRest<SerieRest> findAll(Pageable pageable) {
-        Page<Serie> series = serieService.findAll(pageable);
+    public PageRest<SerieRest> findAll(Pageable pageable, String user) {
+        Page<Serie> series = serieService.findAll(pageable, user);
         PageRest<SerieRest> pageRest = new PageRest<>();
         pageRest.setData(convertToRest(series.toList()));
         pageRest.setMaxPage(series.getTotalPages());

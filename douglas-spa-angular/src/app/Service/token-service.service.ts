@@ -22,8 +22,11 @@ export class TokenServiceService {
     window.sessionStorage.setItem(environment.userNameKey, userName);
   }
 
-  public getUserName(): string|null {
-    return window.sessionStorage.getItem(environment.userNameKey);
+  userName: string|null = "";
+  public getUserName(): string {
+    this.userName = window.sessionStorage.getItem(environment.userNameKey);
+    if(this.userName==null) return "";
+    return this.userName.trim();
   }
 
   public logOut(): void{

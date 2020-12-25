@@ -26,20 +26,20 @@ public abstract class BaseController<Rest extends BaseRest, Dto extends BaseEnti
     }
 
     @PostMapping
-    @PreAuthorize("hasRol('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Rest save(@RequestBody @Valid Rest rest) {
         return application.save(rest);
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRol('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void update(@PathVariable int id, @Valid @RequestBody Rest rest) {
         if(rest.getId() != id) throw new RuntimeException("F Bro...");
         application.update(rest);
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRol('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteById(@PathVariable int id) {
         application.deleteById(id);
     }

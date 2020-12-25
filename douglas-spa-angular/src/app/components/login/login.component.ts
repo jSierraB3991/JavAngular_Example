@@ -27,13 +27,13 @@ export class LoginComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
-    console.log("Logueado");
     if(this.tokenService.getToken()){
-      console.log("Logueado");
-      
-      this.isLoginSuccessfull = true;
-      this.isLoging = true;
+      this.goPrincipal();
     }
+  }
+
+  goPrincipal():void{
+    this.router.navigate(['/serie']);
   }
 
   onLogin(): void{
@@ -51,6 +51,7 @@ export class LoginComponent implements OnInit {
         this.isLoging = true;
         this.tokenService.setToken(data.token);
         this.tokenService.setUserName(data.userName);
+        this.goPrincipal();
       },
       error => {
         this.hasError = true;
@@ -61,6 +62,10 @@ export class LoginComponent implements OnInit {
         this.errorMessage = error.error.message;  
       }
     )
+  }
+
+  cancel(): void{
+    this.goPrincipal();
   }
 
 }

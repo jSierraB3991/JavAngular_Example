@@ -1,9 +1,11 @@
 package com.douglas.Douglas.infrastructure.data.adapter;
 
+import com.douglas.Douglas.core.model.Authorization;
 import com.douglas.Douglas.core.model.ImageSerie;
 import com.douglas.Douglas.core.model.Season;
 import com.douglas.Douglas.core.model.Serie;
 import com.douglas.Douglas.core.service.SerieService;
+import com.douglas.Douglas.infrastructure.data.repository.AuthorizationRepository;
 import com.douglas.Douglas.infrastructure.data.repository.SerieRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,13 +17,29 @@ import java.util.Optional;
 @Service
 public class SerieAdapter extends GenericAdapter<Serie> implements SerieService {
 
-    public SerieAdapter(SerieRepository serieRepository){
+    private final AuthorizationRepository authorizationRepository;
+    public SerieAdapter(SerieRepository serieRepository,
+                        AuthorizationRepository authorizationRepository){
         super(serieRepository);
+        this.authorizationRepository = authorizationRepository;
     }
 
     @Override
-    public Page<Serie> findAll(Pageable pageable) {
-        return repository.findAll(pageable);
+    public Page<Serie> findAll(Pageable pageable, String user) {
+        Page<Serie> series = repository.findAll(pageable);
+        if(!Optional.ofNullable(user).isPresent()) setVideos(series);
+        else{
+            Optional<Authorization> userO = authorizationRepository.findByEmail(user);
+            if(!userO.isPresent()) setVideos(series);
+            if(userO.isPresent() && !userO.get().isStatus()) setVideos(series);
+        }
+        return series;
+    }
+
+    public void setVideos(Page<Serie> series){
+        series.get().forEach(serie -> {
+            serie.getSeasons().forEach(season -> season.setVideoSeasons(new ArrayList<>()));
+        });
     }
 
     @Override

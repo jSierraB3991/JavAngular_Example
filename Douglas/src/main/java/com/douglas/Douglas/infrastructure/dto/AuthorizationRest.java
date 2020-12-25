@@ -1,5 +1,6 @@
 package com.douglas.Douglas.infrastructure.dto;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,6 +46,8 @@ public class AuthorizationRest extends BaseRest {
 
     @Size(max = 11, message = "exception.save.user.cellphone.max.length")
     private String cellPhone;
+
+    private boolean status;
 
     private Set<RoleRest> roles = new HashSet<>();
 }

@@ -11,7 +11,7 @@ input[type=text], input[type=password] {
 }
 
 /* Set a style for all buttons */
-button {
+button, .button {
   background-color: #4CAF50;
   padding: 14px 20px;
   margin: 8px 0;
@@ -20,8 +20,16 @@ button {
   width: 100%;
 }
 
-button:hover {
+.button{
+  
+}
+
+button:hover, .button:hover {
   opacity: 0.8;
+}
+
+.btn-danger{
+  background-color: #f44336;
 }
 
 /* Extra styles for the cancel button */
@@ -45,6 +53,7 @@ img.avatar {
 
 .container {
   padding: 16px;
+  width: 100%;
 }
 
 span.psw {
@@ -103,4 +112,9 @@ span.psw {
   .cancelbtn {
      width: 100%;
   }
+}
+
+.col-md-6{
+  display: inline-block;
+  width: 33%;
 }

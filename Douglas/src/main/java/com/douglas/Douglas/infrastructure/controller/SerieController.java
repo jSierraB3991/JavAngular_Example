@@ -38,6 +38,6 @@ public class SerieController extends  BaseController<SerieRest, Serie> {
 
     @GetMapping("/pagination")
     public PageRest<SerieRest> findAll(Pageable pageable) {
-        return serieApplication.findAll(pageable);
+        return serieApplication.findAll(pageable, null);
     }
 }

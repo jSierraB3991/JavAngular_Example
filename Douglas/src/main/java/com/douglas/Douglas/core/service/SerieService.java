@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface SerieService extends GenericService<Serie> {
 
-    Page<Serie> findAll(Pageable pageable);
+    Page<Serie> findAll(Pageable pageable, String user);
 
     Serie addSeason(int idSerie, Season season);
 

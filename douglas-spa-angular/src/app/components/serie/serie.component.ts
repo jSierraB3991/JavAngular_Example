@@ -10,6 +10,7 @@ export class SerieComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    
   }
 
 }

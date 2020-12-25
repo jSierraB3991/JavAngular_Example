@@ -38,6 +38,7 @@ public class AuthorizationController {
         Set<RoleRest> roles = new HashSet<>();
         roles.add(RoleRest.builder().rol(RolEnum.ROLE_USER).build());
         authorization.setRoles(roles);
+        authorization.setStatus(true);
         authorizationApplication.save(authorization);
     }
 
