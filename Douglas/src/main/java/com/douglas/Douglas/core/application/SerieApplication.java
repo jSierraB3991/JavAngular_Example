@@ -36,9 +36,8 @@ public class SerieApplication extends GenericApplication<SerieRest, Serie> {
         this.categoryService = categoryService;
     }
 
-    public SerieRest addSeason(int idSerie, SeasonRest season) {
+    public void addSeason(int idSerie, SeasonRest season) {
         Serie serie = serieService.addSeason(idSerie, mapper.map(season, Season.class));
-        return convertToRest(serie);
     }
 
     public SerieRest addImageUrl(int idSerie, String urlImage){

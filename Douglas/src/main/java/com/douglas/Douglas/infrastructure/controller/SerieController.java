@@ -24,9 +24,9 @@ public class SerieController extends  BaseController<SerieRest, Serie> {
     }
 
     @PostMapping("/add-season/{id-serie}")
-    public SerieRest addSeason(@PathVariable("id-serie") int idSerie,
+    public void addSeason(@PathVariable("id-serie") int idSerie,
                                @RequestBody @Valid SeasonRest season) {
-        return serieApplication.addSeason(idSerie, season);
+        serieApplication.addSeason(idSerie, season);
     }
 
     @PostMapping("/add-image-url/{id-serie}")

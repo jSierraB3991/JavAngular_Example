@@ -7,6 +7,7 @@ import com.douglas.Douglas.infrastructure.dto.SeasonRest;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -24,6 +25,11 @@ public class SeasonApplication extends GenericApplication<SeasonRest, Season> {
 
     public SeasonRest addUrlVideo(int idSeason,String urlVideo ) {
         Season season = seasonService.addVideoUrl(idSeason, urlVideo);
+        return convertToRest(season);
+    }
+
+    public List<SeasonRest> findAllBySerie(Integer idSerie){
+        List<Season> season = seasonService.findAllBySerie(idSerie);
         return convertToRest(season);
     }
 

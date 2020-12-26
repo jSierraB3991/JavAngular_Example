@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Category } from 'src/app/models/Category';
 import { Serie } from 'src/app/models/Serie';
 import { CategoryService } from 'src/app/Service/category-service.service';
@@ -22,7 +23,8 @@ export class SerieAdminComponent implements OnInit {
   imageurl: String = "";
 
   constructor(private serieService: SerieAdminService,
-            private categoryService: CategoryService) { }
+            private categoryService: CategoryService,
+            private router: Router) { }
 
   ngOnInit(): void {
     this.get();
@@ -83,6 +85,11 @@ export class SerieAdminComponent implements OnInit {
         error => M.toast({html: error.error.message})
         );
     }
+  }
+
+  goSeason(idSerie: number): void{
+    this.router.navigate(['/admin/season'], { queryParams: { idSerie: idSerie } });
+
   }
 
   get(): void{

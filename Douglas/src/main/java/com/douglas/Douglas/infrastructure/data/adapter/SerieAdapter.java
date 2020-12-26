@@ -65,8 +65,10 @@ public class SerieAdapter extends GenericAdapter<Serie> implements SerieService 
         Serie serie = findById(idSerie);
         if(!Optional.ofNullable(serie.getSeasons()).isPresent())
             serie.setSeasons(new ArrayList<>());
+        season.setSerie(serie);
         serie.getSeasons().add(season);
-        update(serie);
+        serieRepository.save(serie);
+        serie.getSeasons().forEach(s -> s.setSerie(null));
         return serie;
     }
 

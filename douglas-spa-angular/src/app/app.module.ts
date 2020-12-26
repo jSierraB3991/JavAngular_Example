@@ -15,6 +15,7 @@ import { AdminComponent } from './admin/admin/admin.component';
 import { CategoryComponent } from './admin/category/category.component';
 import { SeasonComponent } from './admin/season/season.component';
 import { SerieAdminComponent } from './admin/serie/serie.component';
+import { SeasonAdminComponent } from './admin/season-admin/season-admin.component';
 
 const routes: Routes = [
   {
@@ -48,7 +49,7 @@ const routes: Routes = [
   },
   {
     path: 'admin/season',
-    component: SeasonComponent
+    component: SeasonAdminComponent
   }
 ];
 
@@ -62,7 +63,8 @@ const routes: Routes = [
     AdminComponent,
     CategoryComponent,
     SeasonComponent,
-    SerieAdminComponent
+    SerieAdminComponent,
+    SeasonAdminComponent
   ],
   imports: [
     BrowserModule,
