@@ -77,7 +77,7 @@ public class SerieApplication extends GenericApplication<SerieRest, Serie> {
     protected SerieRest convertToRest(Serie dto) {
         SerieRest serie = mapper.map(dto, SerieRest.class);
 
-        if(Optional.ofNullable(dto.getImageSeries()).isPresent()){
+        if(Optional.ofNullable(dto.getImageSeries()).isPresent() && !dto.getImageSeries().isEmpty()){
             serie.setImages(dto.getImageSeries().stream()
                     .map(ImageSerie::getUrlImage)
                     .collect(Collectors.toList()));

@@ -53,6 +53,7 @@ export class RegisterComponentComponent implements OnInit {
             console.log(data);
             this.tokenService.setToken(data.token);
             this.tokenService.setUserName(data.userName);
+            this.tokenService.setTokenType(data.bearer);
             this.goPrincipal();
           },
           error => {

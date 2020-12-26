@@ -1,0 +1,45 @@
+<app-admin></app-admin>
+
+<div class="container">
+    <div class="row">
+        <div class="col s5">
+            <div class="card">
+                <div class="card-content">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" [(ngModel)]="name" placeholder="Enter Name"  />
+                        </div>
+                    </div>
+                    <div class="card-action">
+                        <button class="btn" (click)="save();"> Guardar </button>
+                        <button class="btn right" (click)="resetForm();" > Limpiar </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s7">
+            <table>
+                <thead>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let category of categories">
+                        <td> {{ category.id }} </td>
+                        <td> {{ category.name}} </td>
+                        <td> 
+                            <a (click)="edit(category);">
+                                <i class="tiny material-icons">edit</i>
+                            </a>
+                            <a (click)="question(category);">
+                                <i class="tiny material-icons">delete</i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

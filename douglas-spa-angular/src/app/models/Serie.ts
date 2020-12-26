@@ -1,12 +1,22 @@
 import { Category } from './Category';
 import { Season } from './Season';
 
-export interface Serie{
+export class Serie{
     id: number;
-    name: String;
-    remarks: String;
+    name: string;
+    remarks: string;
     category: Category;
-    images: Array<String>;
+    images: Array<string>;
     seasons: Array<Season>;
-    firstImage: String;
+    firstImage: string;
+
+    constructor(id: number, name: string, remarks: string, category: Category){
+        this.id = id;
+        this.name = name;
+        this.remarks = remarks;
+        this.category = category;
+        this.images = [];
+        this.seasons = [];
+        this.firstImage = "";
+    }
 }

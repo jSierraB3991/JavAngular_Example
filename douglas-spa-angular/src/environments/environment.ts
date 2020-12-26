@@ -6,8 +6,10 @@ export const environment = {
   production: false,
   urlApi : "http://localhost:20001/api",
   header_username : "user-name",
+
   tokenKey: "AuthToken",
-  userNameKey: "AuthUserName"
+  userNameKey: "AuthUserName",
+  tokenType: "tokenType"
 };
 
 /*

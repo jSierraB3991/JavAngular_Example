@@ -16,6 +16,15 @@ export class TokenServiceService {
   public getToken(): string|null {
     return window.sessionStorage.getItem(environment.tokenKey);
   }
+
+  public setTokenType(type: string): void{
+    window.sessionStorage.removeItem(environment.tokenType);
+    window.sessionStorage.setItem(environment.tokenType, type);
+  }
+
+  public getTokenType(): string|null {
+    return window.sessionStorage.getItem(environment.tokenType);
+  }
   
   public setUserName(userName: string): void{
     window.sessionStorage.removeItem(environment.userNameKey);

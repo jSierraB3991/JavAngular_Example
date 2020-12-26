@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 public abstract class BaseController<Rest extends BaseRest, Dto extends BaseEntity> {
 
     private final GenericApplication<Rest, Dto> application;

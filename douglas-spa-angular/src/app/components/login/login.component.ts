@@ -35,6 +35,10 @@ export class LoginComponent implements OnInit {
   goPrincipal():void{
     this.router.navigate(['/serie']);
   }
+  
+  goAdmin():void{
+    this.router.navigate(['/admin/category']);
+  }
 
   onLogin(): void{
     console.log(this.email, this.password);
@@ -51,7 +55,15 @@ export class LoginComponent implements OnInit {
         this.isLoging = true;
         this.tokenService.setToken(data.token);
         this.tokenService.setUserName(data.userName);
-        this.goPrincipal();
+        this.tokenService.setTokenType(data.bearer);
+        var isAdmin: Boolean = false;
+        data.roles.forEach(rol => {
+          if(rol.authority == "ROLE_ADMIN"){
+            isAdmin = true;
+          }
+        });
+        if(isAdmin) {this.goAdmin();}
+        else{ this.goPrincipal();}
       },
       error => {
         this.hasError = true;

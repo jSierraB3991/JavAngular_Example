@@ -11,6 +11,10 @@ import { LoginComponent } from './components/login/login.component';
 import { SerieComponent } from './components/serie/serie.component';
 import { RegisterComponentComponent } from './components/register-component/register-component.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AdminComponent } from './admin/admin/admin.component';
+import { CategoryComponent } from './admin/category/category.component';
+import { SeasonComponent } from './admin/season/season.component';
+import { SerieAdminComponent } from './admin/serie/serie.component';
 
 const routes: Routes = [
   {
@@ -34,6 +38,18 @@ const routes: Routes = [
     path: 'register',
     component: RegisterComponentComponent
   },
+  {
+    path: 'admin/category',
+    component: CategoryComponent
+  },
+  {
+    path: 'admin/serie',
+    component: SerieAdminComponent
+  },
+  {
+    path: 'admin/season',
+    component: SeasonComponent
+  }
 ];
 
 @NgModule({
@@ -42,7 +58,11 @@ const routes: Routes = [
     SeriesComponent,
     LoginComponent,
     SerieComponent,
-    RegisterComponentComponent
+    RegisterComponentComponent,
+    AdminComponent,
+    CategoryComponent,
+    SeasonComponent,
+    SerieAdminComponent
   ],
   imports: [
     BrowserModule,
