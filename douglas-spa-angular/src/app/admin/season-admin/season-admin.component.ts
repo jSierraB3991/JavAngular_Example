@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { error } from 'protractor';
 import { Season } from 'src/app/models/Season';
 import { SeasonService } from 'src/app/Service/season-service.service';
+import { SerieAdminService } from 'src/app/Service/serie-admin-service.service';
 
 
 declare var M: any;
@@ -21,7 +23,8 @@ export class SeasonAdminComponent implements OnInit {
 
   constructor(private seasonService: SeasonService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private serieService: SerieAdminService) {
   }
 
   ngOnInit(): void {
@@ -34,7 +37,18 @@ export class SeasonAdminComponent implements OnInit {
         }
     });
 
-    this.get();
+    this.getSerie();
+  }
+
+  getSerie(): void{
+    this.serieService.getById(this.idSerie).subscribe(
+      data => this.get(),
+      error => this.router.navigate(['/admin/serie'])
+    );
+  }
+
+  goChapters(idSeason: number): void{
+    this.router.navigate(['/admin/chapter'], { queryParams: { idSeason: idSeason } });
   }
 
   get(): void{
@@ -43,7 +57,6 @@ export class SeasonAdminComponent implements OnInit {
         this.seasons = data;
       },
       error =>{
-        console.log(error);
         M.toast({html: "Error al tratar de traer los datos"});
       }
     );

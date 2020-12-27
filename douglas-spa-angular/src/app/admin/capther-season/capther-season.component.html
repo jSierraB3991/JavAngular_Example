@@ -7,17 +7,14 @@
                 <div class="card-content">
                     <div class="row">
                         <div class="input-field col s12">
-                            <input type="text" [(ngModel)]="name" placeholder="Enter Name"  />
-                        </div>
-                        <div class="input-field col s12">
-                            <input type="text" [(ngModel)]="remarks" placeholder="Enter Remarks"  />
+                            <input type="text" [(ngModel)]="urlVideo" placeholder="Enter Name"  />
                         </div>
                     </div>
                     <div class="card-action">
                         <button class="btn" (click)="save();"> Guardar </button>
                         <button class="btn right" (click)="resetForm();" > Limpiar </button>
                     </div>
-                    <input type="hidden" [(ngModel)]="idSerie" />
+                    <input type="hidden" [(ngModel)]="idSeason" />
                 </div>
             </div>
         </div>
@@ -25,20 +22,17 @@
         <div class="col s7">
             <table>
                 <thead>
-                    <Th>Id</Th>
+                    <th>Id</th>
                     <th>Name</th>
                     <th></th>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let season of seasons">
-                        <td> {{ season.id}} </td>
-                        <td> {{ season.name}} </td>
+                    <tr *ngFor="let chapter of chapters">
+                        <td> {{ chapter.id}} </td>
+                        <td> {{ chapter.urlVideo}} </td>
                         <td>
-                            <a (click)="question(season);">
+                            <a (click)="question(chapter);">
                                 <i class="tiny material-icons">delete</i>
-                            </a>
-                            <a (click)="goChapters(season.id);">
-                                <i class="tiny material-icons">add</i>
                             </a>
                         </td>
                     </tr>

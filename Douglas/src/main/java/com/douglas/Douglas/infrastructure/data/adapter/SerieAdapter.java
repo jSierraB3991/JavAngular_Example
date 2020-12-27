@@ -60,6 +60,10 @@ public class SerieAdapter extends GenericAdapter<Serie> implements SerieService 
         });
     }
 
+    public void setVideos(Serie serie){
+        serie.getSeasons().forEach(season -> season.setVideoSeasons(new ArrayList<>()));
+    }
+
     @Override
     public Serie addSeason(int idSerie, Season season) {
         Serie serie = findById(idSerie);
@@ -86,6 +90,18 @@ public class SerieAdapter extends GenericAdapter<Serie> implements SerieService 
     @Override
     public List<Serie> findByCategory(int category) {
         return serieRepository.findByCategory(category);
+    }
+
+    @Override
+    public Serie findById(Integer id, String userName) {
+        Serie serie = this.findById(id);
+        if(!Optional.ofNullable(userName).isPresent()) setVideos(serie);
+        else{
+            Optional<Authorization> userO = authorizationRepository.findByEmail(userName);
+            if(!userO.isPresent()) setVideos(serie);
+            if(userO.isPresent() && !userO.get().isStatus()) setVideos(serie);
+        }
+        return serie;
     }
 
     @Override

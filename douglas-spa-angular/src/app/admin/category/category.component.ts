@@ -36,7 +36,6 @@ export class CategoryComponent implements OnInit {
         id: 0
       }).subscribe(
         data =>{
-          console.log(data);
           M.toast({html: 'Categoria '+ this.name +' Guardada'});
           this.resetForm();
           this.get();
@@ -47,12 +46,10 @@ export class CategoryComponent implements OnInit {
   }
 
   get(): void{
-    this.categoryService.getCategories().subscribe(data => {
-        console.log(data);
-        this.categories = data;
-    },error => {
-      console.log(error);
-      M.toast({html: 'No se pudo traer los datos'});
+    this.categoryService.getCategories().subscribe(
+      data => this.categories = data,
+      error => {
+        M.toast({html: 'No se pudo traer los datos'});
     })
   }
 
@@ -67,7 +64,6 @@ export class CategoryComponent implements OnInit {
       id: this.id
     }).subscribe(
       data =>{
-        console.log(data);
         M.toast({html: 'Categoria Actualizada'});
         this.resetForm();
         this.get();

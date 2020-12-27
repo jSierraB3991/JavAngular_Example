@@ -22,6 +22,14 @@ export class SerieAdminService{
         });
     }
 
+    public getById(id: number): Observable<Serie>{
+        return this.http.get<Serie>(environment.urlApi+"/serie/" + id,{
+            headers: new HttpHeaders({
+                "Authorization": this.tokenService.getTokenType() +" " + this.tokenService.getToken()
+            })
+        });
+    }
+
     public post(serie: Serie): Observable<Serie>{
         return this.http.post<Serie>(environment.urlApi+"/serie", serie,{
             headers: new HttpHeaders({

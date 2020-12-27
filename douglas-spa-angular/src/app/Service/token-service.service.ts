@@ -8,6 +8,16 @@ export class TokenServiceService {
 
   constructor() { }
 
+  
+  public setRole(role: string): void{
+    window.sessionStorage.removeItem(environment.roleUSer);
+    window.sessionStorage.setItem(environment.roleUSer, role);
+  }
+
+  public getRole(): string|null {
+    return window.sessionStorage.getItem(environment.roleUSer);
+  }
+
   public setToken(token: string): void{
     window.sessionStorage.removeItem(environment.tokenKey);
     window.sessionStorage.setItem(environment.tokenKey, token);
@@ -41,5 +51,7 @@ export class TokenServiceService {
   public logOut(): void{
     window.sessionStorage.removeItem(environment.tokenKey);
     window.sessionStorage.removeItem(environment.userNameKey);
+    window.sessionStorage.removeItem(environment.roleUSer);
+    window.sessionStorage.removeItem(environment.tokenType);
   }
 }

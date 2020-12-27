@@ -21,6 +21,14 @@ export class SeasonService {
             })
         });
     }
+    
+    public getById(idSeason: number): Observable<Season>{
+        return this.http.get<Season>(environment.urlApi+"/season/" + idSeason,{
+            headers: new HttpHeaders({
+                "Authorization": this.tokenService.getTokenType() +" " + this.tokenService.getToken()
+            })
+        });
+    }
 
     public post(season: Season, idSerie: number): Observable<Season>{
         return this.http.post<Season>(environment.urlApi+"/serie/add-season/" + idSerie, season,{

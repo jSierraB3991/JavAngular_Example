@@ -40,8 +40,11 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/admin/category']);
   }
 
+  register():void{
+    this.router.navigate(['/register']);
+  }
+
   onLogin(): void{
-    console.log(this.email, this.password);
     this.hasError = false; 
     this.submitted = true;
     this.authenticationService.login({
@@ -50,7 +53,6 @@ export class LoginComponent implements OnInit {
     }).subscribe(
       data => {
         this.submitted = false;
-        console.log(data);
         this.isLoginSuccessfull = true;
         this.isLoging = true;
         this.tokenService.setToken(data.token);
@@ -58,6 +60,7 @@ export class LoginComponent implements OnInit {
         this.tokenService.setTokenType(data.bearer);
         var isAdmin: Boolean = false;
         data.roles.forEach(rol => {
+          this.tokenService.setRole(rol.authority)
           if(rol.authority == "ROLE_ADMIN"){
             isAdmin = true;
           }
@@ -70,7 +73,6 @@ export class LoginComponent implements OnInit {
         this.isLoginSuccessfull = false;
         this.isLoging = false;
         this.submitted = false;
-        console.log(error.error.message);
         this.errorMessage = error.error.message;  
       }
     )

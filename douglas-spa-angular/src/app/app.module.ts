@@ -13,9 +13,10 @@ import { RegisterComponentComponent } from './components/register-component/regi
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminComponent } from './admin/admin/admin.component';
 import { CategoryComponent } from './admin/category/category.component';
-import { SeasonComponent } from './admin/season/season.component';
 import { SerieAdminComponent } from './admin/serie/serie.component';
 import { SeasonAdminComponent } from './admin/season-admin/season-admin.component';
+import { CaptherSeasonComponent } from './admin/capther-season/capther-season.component';
+import { PlayVideoComponent } from './component/play-video/play-video.component';
 
 const routes: Routes = [
   {
@@ -50,7 +51,11 @@ const routes: Routes = [
   {
     path: 'admin/season',
     component: SeasonAdminComponent
-  }
+  },
+  {
+    path: 'admin/chapter',
+    component: CaptherSeasonComponent
+  },
 ];
 
 @NgModule({
@@ -62,9 +67,10 @@ const routes: Routes = [
     RegisterComponentComponent,
     AdminComponent,
     CategoryComponent,
-    SeasonComponent,
     SerieAdminComponent,
-    SeasonAdminComponent
+    SeasonAdminComponent,
+    CaptherSeasonComponent,
+    PlayVideoComponent
   ],
   imports: [
     BrowserModule,

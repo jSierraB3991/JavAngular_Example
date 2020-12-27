@@ -20,10 +20,10 @@
         <button type="submit" [disabled]="submitted" (click)="onLogin()">Login</button>
       </div>
       <div class="col-md-6">
-        <a routerLink="/register" class="button" type="submit"> Registrarse </a>
+        <button type="submit" class="btn-danger" [disabled]="submitted" (click)="cancel()">Cancelar</button>
       </div>
       <div class="col-md-6">
-        <button type="submit" class="btn-danger" [disabled]="submitted" (click)="cancel()">Cancelar</button>
+        <button (click)="register()"> Registrarse </button>
       </div>
     </div>
   </div>

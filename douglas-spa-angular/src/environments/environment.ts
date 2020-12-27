@@ -9,7 +9,8 @@ export const environment = {
 
   tokenKey: "AuthToken",
   userNameKey: "AuthUserName",
-  tokenType: "tokenType"
+  tokenType: "tokenType",
+  roleUSer: "roleName"
 };
 
 /*

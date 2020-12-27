@@ -14,6 +14,7 @@ export class SeriesComponent implements OnInit {
   series: Array<Serie> = [];
   isNotLogin: Boolean = true;
   categories: Array<Category> = [];
+  isAdmin: Boolean = false;
 
   constructor(private service: SerieServiceService,
             private tokenService: TokenServiceService,
@@ -23,22 +24,22 @@ export class SeriesComponent implements OnInit {
   ngOnInit(): void {
     if(this.tokenService.getToken()){
       this.isNotLogin = false;
+      if(this.tokenService.getRole()!=null && this.tokenService.getRole()=="ROLE_ADMIN"){
+        this.isAdmin = true;
+      }
     }
 
     this.service.getCategories().subscribe(data => {
-      console.log(data);
       this.categories = data;
     });
 
     this.service.getSeries().subscribe(data => {
-      console.log(data.data);
       this.series = data.data;
     });
   }
 
   closeSession(): void{
-    this.tokenService.setToken("");
-    this.tokenService.setUserName("");
+    this.tokenService.logOut();
     this.router.navigate(['/login']);
   }
 

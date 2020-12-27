@@ -2,6 +2,7 @@
     <div  class="form">
         <a routerLink="/login" class="alogin search" *ngIf="isNotLogin"> Login </a>
         <button class="alogin search" *ngIf="!isNotLogin" (click)="closeSession()"> Cerrar Session </button>
+        <a class="alogin search" *ngIf="isAdmin" routerLink="/admin/category" > Admin </a>
         <select class="search">
             <option value="0">Seleccione</option>
             <option id="{{category.id}}" *ngFor="let category of categories">{{category.name}}</option>
@@ -10,7 +11,7 @@
 </header>
 <div class="movie-container">
     <div class="movie" *ngFor="let serie of series">
-        <a routerLink="/details?serie={{serie.id}}">
+        <a routerLink="/details" [queryParams]="{ idSerie: serie.id }">
             <img src="{{ serie.firstImage }}"
             alt="{{ serie.name }}" />
             <div class="movie-info">

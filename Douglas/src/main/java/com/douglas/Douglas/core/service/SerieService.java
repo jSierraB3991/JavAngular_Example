@@ -16,4 +16,6 @@ public interface SerieService extends GenericService<Serie> {
     Serie addImageUrl(int idSerie, String urlImage);
 
     List<Serie> findByCategory(int category);
+
+    Serie findById(Integer id, String userName);
 }

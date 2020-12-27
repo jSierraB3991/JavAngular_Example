@@ -20,7 +20,7 @@ export class SerieAdminComponent implements OnInit {
   id: number = 0;
   series: Array<Serie> = [];
   categories: Array<Category> = [];
-  imageurl: String = "";
+  imageurl: string = "";
 
   constructor(private serieService: SerieAdminService,
             private categoryService: CategoryService,
@@ -37,7 +37,6 @@ export class SerieAdminComponent implements OnInit {
         this.categories = data
       },
       error => {
-        console.log(error);
         M.toast({html: 'No se pudieron traer las categorias'});
       }
     );
@@ -52,7 +51,6 @@ export class SerieAdminComponent implements OnInit {
   }
 
   edit(serie: Serie){
-    console.log(serie);
     this.id = serie.id;
     this.name = serie.name;
     this.category = serie.category;
@@ -72,12 +70,11 @@ export class SerieAdminComponent implements OnInit {
         id: 0,
         category: this.category,
         remarks: this.remarks,
-        firstImage: "",
+        firstImage: this.imageurl,
         images: [],
         seasons: []
       }).subscribe(
         data =>{
-          console.log(data);
           M.toast({html: 'Serie '+ this.name +' Guardada'});
           this.resetForm();
           this.get();
@@ -94,10 +91,8 @@ export class SerieAdminComponent implements OnInit {
 
   get(): void{
     this.serieService.get().subscribe(data => {
-        console.log(data);
         this.series = data;
     },error => {
-      console.log(error);
       M.toast({html: 'No se pudo traer los datos'});
     })
   }
@@ -113,7 +108,6 @@ export class SerieAdminComponent implements OnInit {
       seasons: []
     }).subscribe(
       data =>{
-        console.log(data);
         M.toast({html: 'Serie Actualizada'});
         this.resetForm();
         this.get();

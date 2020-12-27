@@ -43,14 +43,12 @@ export class RegisterComponentComponent implements OnInit {
     }).subscribe(
       data => {
         this.submitted = false;
-        console.log(data);
         this.authenticationService.login({
           email: this.email,
           password: this.password
         }).subscribe(
           data => {
             this.submitted = false;
-            console.log(data);
             this.tokenService.setToken(data.token);
             this.tokenService.setUserName(data.userName);
             this.tokenService.setTokenType(data.bearer);
@@ -59,7 +57,6 @@ export class RegisterComponentComponent implements OnInit {
           error => {
             this.hasError = true;
             this.submitted = false;
-            console.log(error.error.message);
             this.errorMessage = error.error.message;  
           }
         );
@@ -67,7 +64,6 @@ export class RegisterComponentComponent implements OnInit {
       error => {
         this.hasError = true;
         this.submitted = false;
-        console.log(error.error.message);
         this.errorMessage = error.error.message;  
       }
     );

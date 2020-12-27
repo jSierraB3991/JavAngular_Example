@@ -23,4 +23,10 @@ public class SeriePublicController {
         PageRest<SerieRest> series =  serieApplication.findAll(pageable, userName);
         return series;
     }
+
+    @GetMapping("/{id}")
+    public SerieRest findById(@PathVariable Integer id, @RequestHeader("user-name") String userName) {
+        if(Optional.ofNullable(userName).orElse("").trim().equals("")) userName = null;
+        return  serieApplication.findById(id, userName);
+    }
 }

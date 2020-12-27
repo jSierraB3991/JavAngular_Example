@@ -55,6 +55,10 @@ public class SerieApplication extends GenericApplication<SerieRest, Serie> {
         return pageRest;
     }
 
+    public SerieRest findById(Integer id, String user) {
+        return convertToRest(serieService.findById(id, user));
+    }
+
     private SerieRest set(SerieRest rest)
     {
         rest.setCategory(mapper.map(categoryService.findById(rest.getCategory().getId()),
@@ -100,6 +104,7 @@ public class SerieApplication extends GenericApplication<SerieRest, Serie> {
 
     @Override
     protected Serie convertToDto(SerieRest rest) {
+
         Serie serie =  mapper.map(rest, Serie.class);
         if(Optional.ofNullable(rest.getImages()).isPresent())
             serie.setImageSeries(
@@ -107,6 +112,11 @@ public class SerieApplication extends GenericApplication<SerieRest, Serie> {
                             .map(i -> new ImageSerie(0, i, serie))
                             .collect(Collectors.toList())
             );
+        if(Optional.ofNullable(rest.getFirstImage()).isPresent()){
+            if(Optional.ofNullable(serie.getImageSeries()).isPresent())
+                serie.setImageSeries(new ArrayList<>());
+            serie.getImageSeries().add(new ImageSerie(0, rest.getFirstImage(), serie));
+        }
         return serie;
     }
 }
