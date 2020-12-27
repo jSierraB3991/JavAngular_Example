@@ -1,5 +1,6 @@
 <header>
     <div  class="form">
+        <img src="../../../assets/img/logo.png" height="50" />
         <a routerLink="/login" class="alogin search" *ngIf="isNotLogin"> Login </a>
         <button class="alogin search" *ngIf="!isNotLogin" (click)="closeSession()"> Cerrar Session </button>
         <a class="alogin search" *ngIf="isAdmin" routerLink="/admin/category" > Admin </a>
