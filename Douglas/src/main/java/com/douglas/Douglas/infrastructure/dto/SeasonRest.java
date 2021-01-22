@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Getter
@@ -14,10 +15,10 @@ import java.util.List;
 public class SeasonRest extends  BaseRest
 {
     @NotBlank(message = "The name in season is mandatory")
-    @Max(value = 30, message = "The maximum character for name of season is 30 characters")
+    @Size(max = 100, min = 1, message = "The maximum character for name of season is 100 characters")
     private String name;
 
-    @Max(value = 1000, message = "The maximum character for remarks is 1000 characters")
+    @Size(max = 2000, min = 1, message = "The maximum character for remarks is 2000 characters")
     private String remarks;
 
     private List<String> videosUrl;

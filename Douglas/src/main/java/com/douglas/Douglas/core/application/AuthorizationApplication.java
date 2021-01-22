@@ -1,22 +1,27 @@
 package com.douglas.Douglas.core.application;
 
 import com.douglas.Douglas.core.model.Authorization;
+import com.douglas.Douglas.core.model.Role;
 import com.douglas.Douglas.core.service.AuthorizationService;
 import com.douglas.Douglas.infrastructure.dto.AuthorizationRest;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.stream.Collectors;
+
 @Component
 public class AuthorizationApplication extends GenericApplication<AuthorizationRest, Authorization> {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ModelMapper mapper;
+    private final AuthorizationService authorizationService;
 
     public AuthorizationApplication(AuthorizationService service,
                                     BCryptPasswordEncoder bCryptPasswordEncoder,
                                     ModelMapper mapper) {
         super(service);
+        authorizationService = service;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.mapper = mapper;
     }
@@ -34,6 +39,11 @@ public class AuthorizationApplication extends GenericApplication<AuthorizationRe
 
     @Override
     protected Authorization convertToDto(AuthorizationRest rest) {
-        return mapper.map(rest, Authorization.class);
+        Authorization authorization = mapper.map(rest, Authorization.class);
+        authorization.setRole(rest.getRoles().stream()
+                .map(rol -> new Role(0, rol.getRol()))
+                .collect(Collectors.toSet()));
+        return authorization;
     }
+
 }

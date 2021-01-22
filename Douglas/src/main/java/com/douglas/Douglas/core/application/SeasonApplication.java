@@ -4,9 +4,11 @@ import com.douglas.Douglas.core.model.Season;
 import com.douglas.Douglas.core.model.VideoSeason;
 import com.douglas.Douglas.core.service.SeasonService;
 import com.douglas.Douglas.infrastructure.dto.SeasonRest;
+import com.douglas.Douglas.infrastructure.dto.VideoRest;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -22,8 +24,26 @@ public class SeasonApplication extends GenericApplication<SeasonRest, Season> {
         this.mapper = mapper;
     }
 
+    public void deleteChapter(Integer idSeason, Integer idChapter){
+        seasonService.deleteChapter(idSeason, idChapter);
+    }
+
     public SeasonRest addUrlVideo(int idSeason,String urlVideo ) {
         Season season = seasonService.addVideoUrl(idSeason, urlVideo);
+        return convertToRest(season);
+    }
+
+    public List<VideoRest> findChaptersBySeason(Integer idSeason){
+        List<VideoSeason> videos = seasonService.findChaptersBySeason(idSeason);
+        return videos.stream()
+                .map(video -> VideoRest.builder()
+                        .urlVideo(video.getUrlVideo())
+                        .id(video.getId()).build())
+                .collect(Collectors.toList());
+    }
+
+    public List<SeasonRest> findAllBySerie(Integer idSerie){
+        List<Season> season = seasonService.findAllBySerie(idSerie);
         return convertToRest(season);
     }
 

@@ -36,9 +36,8 @@ public class SerieApplication extends GenericApplication<SerieRest, Serie> {
         this.categoryService = categoryService;
     }
 
-    public SerieRest addSeason(int idSerie, SeasonRest season) {
+    public void addSeason(int idSerie, SeasonRest season) {
         Serie serie = serieService.addSeason(idSerie, mapper.map(season, Season.class));
-        return convertToRest(serie);
     }
 
     public SerieRest addImageUrl(int idSerie, String urlImage){
@@ -46,14 +45,18 @@ public class SerieApplication extends GenericApplication<SerieRest, Serie> {
         return convertToRest(serie);
     }
 
-    public PageRest<SerieRest> findAll(Pageable pageable) {
-        Page<Serie> series = serieService.findAll(pageable);
+    public PageRest<SerieRest> findAll(Pageable pageable, String user) {
+        Page<Serie> series = serieService.findAll(pageable, user);
         PageRest<SerieRest> pageRest = new PageRest<>();
         pageRest.setData(convertToRest(series.toList()));
         pageRest.setMaxPage(series.getTotalPages());
         pageRest.setPreviousPage(previousPage(series.getTotalPages(), pageable.getPageNumber()));
         pageRest.setNextPage(nextPage(series.getTotalPages(), pageable.getPageNumber()));
         return pageRest;
+    }
+
+    public SerieRest findById(Integer id, String user) {
+        return convertToRest(serieService.findById(id, user));
     }
 
     private SerieRest set(SerieRest rest)
@@ -77,7 +80,7 @@ public class SerieApplication extends GenericApplication<SerieRest, Serie> {
     protected SerieRest convertToRest(Serie dto) {
         SerieRest serie = mapper.map(dto, SerieRest.class);
 
-        if(Optional.ofNullable(dto.getImageSeries()).isPresent()){
+        if(Optional.ofNullable(dto.getImageSeries()).isPresent() && !dto.getImageSeries().isEmpty()){
             serie.setImages(dto.getImageSeries().stream()
                     .map(ImageSerie::getUrlImage)
                     .collect(Collectors.toList()));
@@ -101,6 +104,7 @@ public class SerieApplication extends GenericApplication<SerieRest, Serie> {
 
     @Override
     protected Serie convertToDto(SerieRest rest) {
+
         Serie serie =  mapper.map(rest, Serie.class);
         if(Optional.ofNullable(rest.getImages()).isPresent())
             serie.setImageSeries(
@@ -108,6 +112,11 @@ public class SerieApplication extends GenericApplication<SerieRest, Serie> {
                             .map(i -> new ImageSerie(0, i, serie))
                             .collect(Collectors.toList())
             );
+        if(Optional.ofNullable(rest.getFirstImage()).isPresent()){
+            if(Optional.ofNullable(serie.getImageSeries()).isPresent())
+                serie.setImageSeries(new ArrayList<>());
+            serie.getImageSeries().add(new ImageSerie(0, rest.getFirstImage(), serie));
+        }
         return serie;
     }
 }

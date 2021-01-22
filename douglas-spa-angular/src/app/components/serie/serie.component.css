@@ -1,0 +1,38 @@
+.s6{
+    display: inline-block;
+    width: 31%;
+    margin: 2%;
+}
+
+.container-fluid{
+    margin: 2rem;
+}
+
+video{
+    width: 100%;
+}
+
+.form{
+    display: flex !important;
+    justify-content: flex-end !important;
+}
+
+
+header{
+    background-color: #373b69;
+    padding: 1rem;
+}
+
+.header{
+    display: flex !important; 
+}
+
+.search{
+    background-color: transparent;
+    border: 2px solid #22254b;
+    font-family: inherit;
+    color: white;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    padding: 0.5rem 1.5rem;
+}

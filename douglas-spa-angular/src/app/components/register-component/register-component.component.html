@@ -1,0 +1,35 @@
+<div class="text-center" *ngIf="hasError">
+    {{ errorMessage }}
+</div>
+
+<div class="modal-content animate">  
+    <div class="container">
+        <label for="uname"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" [(ngModel)]="email" />
+  
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" [(ngModel)]="password" />
+  
+        <label for="psw"><b>Nombres</b></label>
+        <input type="text" placeholder="Enter First Name" [(ngModel)]="firstName" />
+  
+        <label for="psw"><b>Apellidos</b></label>
+        <input type="text" placeholder="Enter Last Name" [(ngModel)]="lastName" />
+  
+        <label for="psw"><b>Direccion</b></label>
+        <input type="text" placeholder="Enter Address" [(ngModel)]="address" />
+  
+        <label for="psw"><b>Contacto</b></label>
+        <input type="number" placeholder="Enter Cell Phone" [(ngModel)]="cellPhone" />
+        
+        <div class="container">
+            <div class="col-md-6">
+                <button type="submit" [disabled]="submitted" (click)="onRegister()">Registrar</button>
+            </div>
+            <div class="col-md-6">
+                <button type="submit" class="btn-danger" [disabled]="submitted" (click)="cancel()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+  

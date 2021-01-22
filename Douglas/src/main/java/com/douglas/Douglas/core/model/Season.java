@@ -20,7 +20,7 @@ public class Season extends BaseEntity
     @Column(name = "remarks", length = 1000)
     private String remarks;
 
-    @ManyToOne(targetEntity = Serie.class, cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = Serie.class, cascade = CascadeType.PERSIST)
     private Serie serie;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,targetEntity = VideoSeason.class)

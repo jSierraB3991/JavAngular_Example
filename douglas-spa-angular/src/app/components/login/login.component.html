@@ -1,0 +1,30 @@
+<div class="text-center" *ngIf="hasError">
+  {{ errorMessage }}
+</div>
+
+<div class="modal-content animate">
+
+  <div class="imgcontainer">
+    <img alt="Avatar" src="../../../assets/img/indice.jpg" class="avatar">
+  </div>
+
+  <div class="container">
+    <label for="uname"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" [(ngModel)]="email" />
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" [(ngModel)]="password" />
+      
+    <div class="container">
+      <div class="col-md-6">
+        <button type="submit" [disabled]="submitted" (click)="onLogin()">Login</button>
+      </div>
+      <div class="col-md-6">
+        <button type="submit" class="btn-danger" [disabled]="submitted" (click)="cancel()">Cancelar</button>
+      </div>
+      <div class="col-md-6">
+        <button (click)="register()"> Registrarse </button>
+      </div>
+    </div>
+  </div>
+</div>

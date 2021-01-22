@@ -1,0 +1,43 @@
+<app-admin></app-admin>
+
+<div class="container">
+    <div class="row">
+        <div class="col s5">
+            <div class="card">
+                <div class="card-content">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" [(ngModel)]="urlVideo" placeholder="Enter Name"  />
+                        </div>
+                    </div>
+                    <div class="card-action">
+                        <button class="btn" (click)="save();"> Guardar </button>
+                        <button class="btn right" (click)="resetForm();" > Limpiar </button>
+                    </div>
+                    <input type="hidden" [(ngModel)]="idSeason" />
+                </div>
+            </div>
+        </div>
+
+        <div class="col s7">
+            <table>
+                <thead>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let chapter of chapters">
+                        <td> {{ chapter.id}} </td>
+                        <td> {{ chapter.urlVideo}} </td>
+                        <td>
+                            <a (click)="question(chapter);">
+                                <i class="tiny material-icons">delete</i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

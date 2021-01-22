@@ -1,11 +1,18 @@
 package com.douglas.Douglas.infrastructure.dto;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.validation.constraints.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -13,30 +20,34 @@ import javax.validation.constraints.*;
 @AllArgsConstructor
 public class AuthorizationRest extends BaseRest {
 
-    @NotNull(message = "El email es obligatorio")
-    @NotBlank(message = "El email es obligatorio")
-    @Email(message = "El email ingresado no cumple con las condiciones, por favor revise")
+    @NotNull(message = "exception.save.user.email.required")
+    @NotEmpty(message = "exception.save.user.email.required")
+    @Email(message = "exception.save.user.email.not.format",
+            regexp = "^[a-z|A-Z|0-9].*@[a-z|A-Z].{0,6}mail.com$")
     private String email;
 
-    @NotNull(message = "La contraseña es obligatoria")
-    @NotBlank(message = "La contraseña es obligatoria")
-    @Max(value = 15, message = "La longitud maxima de la contraseña es de 15 caracteres")
-    @Min(value = 8, message = "La longitud minima permitida para la contraseña es de 8 caracteres")
+    @NotNull(message = "exception.save.user.password.required")
+    @NotEmpty(message = "exception.save.user.password.required")
+    @Size(max = 15, message = "exception.save.user.password.max.length")
     private String password;
 
-    @NotNull(message = "El primer nombre es obligatorio")
-    @NotBlank(message = "El primer nombre es obligatorio")
-    @Max(value = 50, message = "El(los) nombre(s) tiene(n) màs de 50 caracteres, por favor revise")
+    @NotNull(message = "exception.save.user.first.name.required")
+    @NotEmpty(message = "exception.save.user.first.name.required")
+    @Size(max = 50, message = "exception.save.user.first.name.max.length")
     private String firstName;
 
-    @NotNull(message = "El o los apellidos son obligatorios")
-    @NotBlank(message = "El o los apellidos son obligatorios")
-    @Max(value = 100, message = "Los apellidos tienen mas de 100 caracteres, por favor revise")
+    @NotNull(message = "exception.save.user.last.name.required")
+    @NotEmpty(message = "exception.save.user.last.name.required")
+    @Size(max = 100, message = "exception.save.user.last.name.max.length")
     private String lastName;
 
-    @Max(value = 200, message = "La direcciòn tiene màs de 200 caracteres, por favor revise")
+    @Size(max = 200, message = "exception.save.user.address.max.length")
     private String address;
 
-    @Max(value = 10, message = "El celular tiene màs de 10 caracteres, por favor revise")
+    @Size(max = 11, message = "exception.save.user.cellphone.max.length")
     private String cellPhone;
+
+    private boolean status;
+
+    private Set<RoleRest> roles = new HashSet<>();
 }
