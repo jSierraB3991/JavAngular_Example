@@ -5,7 +5,7 @@ spring:
   datasource:
     username: root
     password: 19871988
-    url: jdbc:mysql://seriestv.c6gnqghev7ml.us-east-2.rds.amazonaws.com:3306/seriestv
+    url: jdbc:mysql://localhost:3306/seriestv
   jpa:
     generate-ddl: true
     hibernate:
